@@ -1,0 +1,5 @@
+This is a comprehensive test of the DES encryption algorithm.
+DES (Data Encryption Standard) is a symmetric-key algorithm for the encryption of digital data.
+Although its short key length of 56 bits makes it too insecure for modern applications,
+it was highly influential in the advancement of cryptography.
+This test will verify that our implementation works correctly for both ECB and CBC modes.

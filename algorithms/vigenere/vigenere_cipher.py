@@ -293,53 +293,34 @@ class VigenereCipher:
         return best_key, best_plaintext
 
 
-def main():
-    """Test function"""
-    cipher = VigenereCipher()
+def crack_from_file(input_file, output_file):
+    """
+    Crack Vigenère cipher từ file và ghi kết quả
+    Theo đúng format yêu cầu của Lab06
     
-    # Test với văn bản dài
-    test_plaintext = """
-    The Vigenère cipher is a method of encrypting alphabetic text by using a series 
-    of interwoven Caesar ciphers based on the letters of a keyword. It is a form of 
-    polyalphabetic substitution. The Vigenère cipher has been reinvented many times. 
-    The method was originally described by Giovan Battista Bellaso in his 1553 book 
-    La cifra del. Sig. Giovan Battista Bellaso. However, the scheme was later 
-    misattributed to Blaise de Vigenère in the 19th century, and is now widely known 
-    as the Vigenère cipher. This cipher is well known because while it is easy to 
-    understand and implement, for three centuries it resisted all attempts to break it.
-    """ * 3  # Lặp lại để đủ dài
+    Output format:
+    - Dòng 1: khóa k
+    - Dòng 2+: plaintext
+    """
+    # Đọc ciphertext
+    print(f"Reading ciphertext from: {input_file}")
+    with open(input_file, 'r', encoding='utf-8') as f:
+        ciphertext = f.read()
     
-    test_key = "SECRET"
-    
-    print(f"Original plaintext length: {len(test_plaintext)}")
-    print(f"Encryption key: '{test_key}'")
-    
-    # Mã hóa
-    encrypted = cipher.decrypt_vigenere(test_plaintext, test_key)  # Dùng decrypt để encrypt (reverse)
-    # Thực ra cần hàm encrypt riêng, nhưng với Vigenère, ta có thể dùng decrypt với key ngược
-    
-    # Mã hóa đúng cách
-    result = []
-    key_index = 0
-    for char in test_plaintext:
-        if char.isalpha():
-            is_upper = char.isupper()
-            char = char.lower()
-            shift = ord(test_key[key_index % len(test_key)]) - ord('a')
-            encrypted_char = chr((ord(char) - ord('a') + shift) % 26 + ord('a'))
-            if is_upper:
-                encrypted_char = encrypted_char.upper()
-            result.append(encrypted_char)
-            key_index += 1
-        else:
-            result.append(char)
-    
-    ciphertext = ''.join(result)
-    print(f"\nCiphertext preview:\n{ciphertext[:200]}...\n")
+    print(f"Ciphertext length: {len(ciphertext)} characters")
     
     # Crack
-    found_key, decrypted = cipher.crack(ciphertext)
+    cipher = VigenereCipher()
+    key, plaintext = cipher.crack(ciphertext)
     
-    print(f"\nDecrypted preview:\n{decrypted[:200]}...")
-    print(f"\nKey match: {'✓' if found_key.upper() == test_key.upper() else '✗'}")
-
+    # Ghi kết quả theo format yêu cầu
+    with open(output_file, 'w', encoding='utf-8') as f:
+        # Dòng 1: khóa
+        f.write(f"{key}\n")
+        # Dòng 2+: plaintext
+        f.write(plaintext)
+    
+    print(f"\n✓ Results saved to: {output_file}")
+    print(f"Found key: {key}")
+    
+    return key, plaintext

@@ -137,33 +137,34 @@ class CaesarCipher:
         return key, plaintext
 
 
-def main():
-    """Hàm test và demo"""
-    cipher = CaesarCipher()
-    
-    # Test với văn bản mẫu
-    test_text = """
-    The quick brown fox jumps over the lazy dog. This is a simple test 
-    of the Caesar cipher algorithm. It should be able to crack this easily.
+def crack_from_file(input_file, output_file):
     """
+    Crack Caesar cipher từ file và ghi kết quả
+    Theo đúng format yêu cầu của Lab06
     
-    # Mã hóa với key = 7
-    test_key = 7
-    print(f"Original text: {test_text}")
-    print(f"\nEncrypting with key = {test_key}...")
+    Output format:
+    - Dòng 1: khóa k
+    - Dòng 2+: plaintext
+    """
+    # Đọc ciphertext
+    print(f"Reading ciphertext from: {input_file}")
+    with open(input_file, 'r', encoding='utf-8') as f:
+        ciphertext = f.read()
     
-    encrypted = cipher.decrypt_with_key(test_text, -test_key)  # -key để mã hóa
-    print(f"Encrypted: {encrypted[:100]}...")
+    print(f"Ciphertext length: {len(ciphertext)} characters")
     
     # Crack
-    print("\n" + "="*60)
-    print("CRACKING...")
-    print("="*60)
+    cipher = CaesarCipher()
+    key, plaintext = cipher.crack(ciphertext)
     
-    found_key, decrypted = cipher.crack(encrypted)
+    # Ghi kết quả theo format yêu cầu
+    with open(output_file, 'w', encoding='utf-8') as f:
+        # Dòng 1: khóa
+        f.write(f"{key}\n")
+        # Dòng 2+: plaintext
+        f.write(plaintext)
     
-    print(f"\n\n=== FINAL RESULT ===")
-    print(f"Found Key: {found_key}")
-    print(f"Expected Key: {test_key}")
-    print(f"Match: {'✓' if found_key == test_key else '✗'}")
-    print(f"\nDecrypted text:\n{decrypted[:200]}...")
+    print(f"\n✓ Results saved to: {output_file}")
+    print(f"Found key: {key}")
+    
+    return key, plaintext

@@ -1,0 +1,5 @@
+This is a comprehensive test of the AES encryption algorithm.
+AES (Advanced Encryption Standard) is a symmetric-key algorithm for the encryption of digital data.
+It was established by the U.S. National Institute of Standards and Technology (NIST) in 2001.
+AES is based on the Rijndael cipher and uses key sizes of 128, 192, or 256 bits.
+This test will verify that our implementation works correctly for both ECB and CBC modes.

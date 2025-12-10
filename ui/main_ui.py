@@ -12,7 +12,8 @@ from algorithms.caesar.caesar_cipher import crack_from_file as crack_caesar_file
 from algorithms.monoalphabetic.mono_cipher import crack_from_file as crack_mono_file
 from algorithms.vigenere.vigenere_cipher import crack_from_file as crack_vigenere_file
 from algorithms.des import DESModes
-from algorithms.aes import AESModes  # <--- Đã thêm import AES
+from algorithms.aes import AESModes  
+from explanation_viewer import ExplanationViewer
 from utils.file_handler import (
     read_text_file, write_text_file,
     hex_to_bytes, bytes_to_hex,
@@ -98,6 +99,16 @@ class CryptoApp(ctk.CTk):
         self.caesar_crack_btn.pack(side="left", padx=10)
         ctk.CTkButton(btn_frame, text="Clear", width=100, height=40,
                      command=self.clear_caesar).pack(side="left", padx=10)
+        
+        ctk.CTkButton(
+            btn_frame, 
+            text="📖 Giải thích",
+            width=150,
+            height=40,
+            fg_color="green",
+            hover_color="darkgreen",
+            command=lambda: ExplanationViewer(self, "Caesar Cipher")
+        ).pack(side="left", padx=10)
     
     # ==================== MONO TAB ====================
     def setup_mono_tab(self):
@@ -142,6 +153,16 @@ class CryptoApp(ctk.CTk):
         self.mono_crack_btn.pack(side="left", padx=10)
         ctk.CTkButton(btn_frame, text="Clear", width=100, height=40,
                      command=self.clear_mono).pack(side="left", padx=10)
+        
+        ctk.CTkButton(
+            btn_frame, 
+            text="📖 Giải thích",
+            width=150,
+            height=40,
+            fg_color="green",
+            hover_color="darkgreen",
+            command=lambda: ExplanationViewer(self, "Monoalphabetic Substitution")
+        ).pack(side="left", padx=10)
     
     # ==================== VIGENERE TAB ====================
     def setup_vigenere_tab(self):
@@ -186,6 +207,17 @@ class CryptoApp(ctk.CTk):
         self.vigenere_crack_btn.pack(side="left", padx=10)
         ctk.CTkButton(btn_frame, text="Clear", width=100, height=40,
                      command=self.clear_vigenere).pack(side="left", padx=10)
+        
+
+        ctk.CTkButton(
+            btn_frame, 
+            text="📖 Giải thích",
+            width=150,
+            height=40,
+            fg_color="green",
+            hover_color="darkgreen",
+            command=lambda: ExplanationViewer(self, "Vigenère Cipher")
+        ).pack(side="left", padx=10)
     
     # ==================== DES TAB ====================
     def setup_des_tab(self):
@@ -284,6 +316,16 @@ class CryptoApp(ctk.CTk):
         self.des_execute_btn.pack(side="left", padx=10)
         ctk.CTkButton(btn_frame, text="Clear", width=100, height=40,
                      command=self.clear_des).pack(side="left", padx=10)
+        
+        ctk.CTkButton(
+            btn_frame, 
+            text="📖 Giải thích",
+            width=150,
+            height=40,
+            fg_color="green",
+            hover_color="darkgreen",
+            command=lambda: ExplanationViewer(self, "DES")
+        ).pack(side="left", padx=10)
     
     # ==================== AES TAB ====================
     def setup_aes_tab(self):
@@ -382,6 +424,17 @@ class CryptoApp(ctk.CTk):
         self.aes_execute_btn.pack(side="left", padx=10)
         ctk.CTkButton(btn_frame, text="Clear", width=100, height=40,
                      command=self.clear_aes).pack(side="left", padx=10)
+        
+
+        ctk.CTkButton(
+            btn_frame, 
+            text="📖 Giải thích",
+            width=150,
+            height=40,
+            fg_color="green",
+            hover_color="darkgreen",
+            command=lambda: ExplanationViewer(self, "AES")
+        ).pack(side="left", padx=10)
     
     # ==================== DES FUNCTIONS ====================
     
